@@ -1,0 +1,97 @@
+drop database if exists SuperMarket_OOP;
+create database SuperMarket_OOP;
+use SuperMarket_OOP;
+
+create table Customer(
+CustID varchar(6)not null,
+CustTitle varchar(5),
+CustName varchar(30)not null,
+CustAddress varchar(30)not null,
+City varchar(20)not null,
+Province varchar(20) not null,
+PostalCode varchar(9)not null,
+constraint primary key(CustID)
+);
+create table Orders(
+OrderID VARCHAR(10) not null,
+OrderDate VARCHAR(10),
+CustID varchar(6)not null,
+constraint primary key(OrderID),
+constraint Unique key(OrderID,OrderDate,CustID),
+constraint foreign key(CustID) references Customer(CustID)on delete cascade on update cascade
+);
+create table Payment(
+PayID VARCHAR(10) not null,
+OrderID VARCHAR(10) not null,
+PaymentType varchar(20)not null,
+Cost decimal(10,2)default 0,
+constraint primary key(PayID),
+constraint foreign key(OrderID) references Orders(OrderID)on delete cascade on update cascade
+);
+create table Item(
+ItemCode varchar(6)not null,
+Description varchar(50)not null,
+PackSize varchar(20)not null,
+UnitPrice decimal(6,2)not null,
+QtyOnHand int(5)not null default 0,
+constraint primary key(ItemCode)
+);
+create table OrderDetail(
+OrderID VARCHAR(10) not null,
+ItemCode varchar(6)not null,
+OrderQTY int (11)not null,
+Descount decimal(6,2)not null,
+constraint primary key(ItemCode,orderID),
+constraint foreign key(ItemCode) references Item(ItemCode)on delete cascade on update cascade,
+constraint foreign key(OrderID) references Orders(OrderID)on delete cascade on update cascade
+);
+
+INSERT INTO Customer VALUES('C001','Mr','Danapala','No.20 Walana','Panadura','Western',12500);
+INSERT INTO Customer VALUES('C002','Mr','Gunapala','No 200, Thalpitiya','Wadduwa','Western',12500);
+INSERT INTO Customer VALUES('C003','Mr','Amarapala','No 100, Horawala','Matugama','Western',13400);
+INSERT INTO Customer VALUES('C004','Mr','Somapala','No .10, Ginigama','Galle','Southern',12213);
+INSERT INTO Customer VALUES('C005','Mr','Jinapala','N0. 34 Ginthota','Aluthgama','Southern',24333);
+INSERT INTO Customer VALUES('C006','Miss','Gnanawathee','No. 230, Galle Road','Panadura','Western',12500);
+INSERT INTO Customer VALUES('C007','Miss','Amarawathee','No, Galle Road','Ambalangoda','Southern',43343);
+INSERT INTO Customer VALUES('C008','Ms','Leelawathee','No 12, Rathnapura Road','Madampe','Sabaragamuwa',32312);
+INSERT INTO Customer VALUES('C009','Ms','Gunawathee','No122, Anuradhapura Road','Kurunegala','Wayamba',23233);
+INSERT INTO Customer VALUES('C010','Mr','Dayapala','No. 234, Attidiya Road','Dehiwala','Western',23434);
+INSERT INTO Customer VALUES('C011','Mr','Sangapala','No. 43, St Peters Road','Negambo','Western',32313);
+INSERT INTO Customer VALUES('C012','Miss','Ariyawathee','No. 123, Pamunuwa Road','Maharagama','Western',23123);
+INSERT INTO Customer VALUES('C013','Miss','Somawathee','No. 345, Matugama Road','Kalutara','Western',23233);
+
+INSERT INTO Item VALUES('P011','Wattana Dhal 1Kg','1kg',170.00,40);
+INSERT INTO Item VALUES('P012','Mysoor Dhal 500g','500g',90.00,89);
+INSERT INTO Item VALUES('P013','Mysoor Dhal 1Kg','1Kg',180.00,59);
+INSERT INTO Item VALUES('P014','Orient Green Gram 500g','500g',118.00,39);
+INSERT INTO Item VALUES('P015','Orient Green Gram 1Kg','1kg',220.00,12);
+INSERT INTO Item VALUES('P016','Anchor F/C Milk powder 450g','450g',220.00,93);
+INSERT INTO Item VALUES('P017','Anchor F/C Milk powder 1Kg','1Kg',580.00,40);
+INSERT INTO Item VALUES('P018','Anchor N/F Milk powder 1Kg','1Kg',560.00,33);
+INSERT INTO Item VALUES('P019','Milo Packet 400g','400g',240.00,33);
+INSERT INTO Item VALUES('P020','Lipton Ceylon Tea 100g','100g',107.00,40);
+INSERT INTO Item VALUES('P021','Lipton Ceylon Tea 200g','200g',198.00,40);
+INSERT INTO Item VALUES('P022','Lipton Ceylon Tea 400g','400g',360.00,20);
+INSERT INTO Item VALUES('P023','White Suger 500g','500g',55.00,45);
+INSERT INTO Item VALUES('P024','White Suger 1Kg','1kg',109.00,25);
+INSERT INTO Item VALUES('P025','Astra Margarine 250g','250g',129.00,25);
+INSERT INTO Item VALUES('P026','Astra Margarine 500g','500g',229.00,15);
+INSERT INTO Item VALUES('P027','Rice Noodle 200g','200g',65.00,25);
+INSERT INTO Item VALUES('P028','Rice Noodle 500g','500g',140.00,35);
+INSERT INTO Item VALUES('P029','Red Rice Noodle 500g','500g',150.00,35);
+INSERT INTO Item VALUES('P030','Coka Cola 1.5L','1.5L',160.00,30);
+INSERT INTO Item VALUES('P031','Coka Cola 500ml','500ml',60.00,30);
+INSERT INTO Item VALUES('P032','Pepsi 500ml','500ml',55.00,30);
+INSERT INTO Item VALUES('P033','Pepsi 1.5L','1.5L',160.00,30);
+INSERT INTO Item VALUES('P034','Sprite 500ml','500ml',55.00,30);
+INSERT INTO Item VALUES('P035','Sprite 1.5L','1.5L',160.00,30);
+INSERT INTO Item VALUES('P036','Tomato Sauce Bottle','860g',340.00,30);
+INSERT INTO Item VALUES('P037','Chillie Sauce Bottle','860g',320.00,30);
+INSERT INTO Item VALUES('P038','Raw Chillie 100g','100g',40.00,30);
+INSERT INTO Item VALUES('P039','Raw Chillie 250g','250g',95.00,30);
+INSERT INTO Item VALUES('P040','Raw Chillie 500g','500g',180.00,30);
+INSERT INTO Item VALUES('P041','Goraka 100g','100g',25.00,30);
+INSERT INTO Item VALUES('P042','Sinnamon Stick 100g','100g',25.00,30);
+INSERT INTO Item VALUES('P043','Anchor 400g','400g',425.00,120);
+
+
